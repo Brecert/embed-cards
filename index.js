@@ -20,28 +20,25 @@ const fetchEmbed = (url) =>
 /** @param {{ embed: EnumSelect<Embed, "Image"> }} embed */
 const ImageEmbed = ({ embed }) =>
   html`
-  <article class="basic-card">
-    <div class="basic-card-image">
-      <img async src=${embed.url} />
-    </div>
-    <div class="basic-card-hr"></div>
-  </article>
-`;
+    <article class="embed card">
+      <img src=${embed.url} width=${embed.width} height=${embed.height} />
+    </article>
+  `;
 
 /** @param {{ embed: EnumSelect<Embed, "Website"> }} embed */
 const BasicEmbed = ({ embed }) =>
   html`
-  <article class="embed card">
-    <span class="elide site_name">${embed.site_name}</span>
-    <span class="elide title">${embed.title}</span>
-    <div class="text description">${embed.description}</div>
-    <img
-      src=${embed.image.url}
-      width=${embed.image.width}
-      height=${embed.image.height}
-    />
-  </article>
-`;
+    <article class="embed card">
+      <span class="elide site_name">${embed.site_name}</span>
+      <span class="elide title">${embed.title}</span>
+      <div class="text description">${embed.description}</div>
+      <img
+        src=${embed.image.url}
+        width=${embed.image.width}
+        height=${embed.image.height}
+      />
+    </article>
+  `;
 
 /** @param {{ embed: Embed }} embed */
 const Embed = ({ embed }) => {
