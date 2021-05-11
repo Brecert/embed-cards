@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica Neue", "Roboto", sans-serif;
+
+  /* see https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars */
+  scrollbar-color: #666 transparent;
+  scrollbar-width: thin;
+}
+
+.break-line {
+  white-space: pre-line;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  place-content: center;
+  gap: 1rem;
+}
+
+.card {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  border: 3px solid rgba(50, 50, 50, 0.12);
+
+  font-family: "Helvetica Neue", "Roboto", sans-serif;
+}
+
+.elide {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.embed {
+  --theme-color: #333;
+
+  contain: content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 55vmin;
+  max-width: min-content;
+  max-height: min-content;
+
+  overflow: hidden;
+}
+
+.embed .text {
+  contain: content;
+
+  overflow: hidden;
+  
+  max-height: 6rem;
+
+  white-space: pre-line;
+
+  transition: max-height 0.5s ease-in-out;
+}
+
+.embed .text:hover {
+  max-height: 200px;
+
+  transition: max-height 0.5s ease-in-out;
+}
+
+.embed .title,
+.embed .site_name,
+.embed .description {
+  padding-inline: 20px;
+}
+
+.embed .site_name {
+  padding-block-start: 15px;
+
+  color: #666;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.embed .title {
+}
+
+.embed .description {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.embed img {
+  border-block-start: 1.5mm solid var(--theme-color);
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}

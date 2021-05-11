@@ -1,0 +1,11 @@
+{
+  "include": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "compilerOptions": {
+    "checkJs": true,
+    "allowJs": true,
+    "lib": ["dom", "es2019"]
+  }
+}
