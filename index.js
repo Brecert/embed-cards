@@ -29,14 +29,16 @@ const ImageEmbed = ({ embed }) =>
 const BasicEmbed = ({ embed }) =>
   html`
     <article class="embed card">
-      <span class="elide site_name">${embed.site_name}</span>
-      <span class="elide title">${embed.title}</span>
-      <div class="text description">${embed.description}</div>
       <img
         src=${embed.image.url}
         width=${embed.image.width}
         height=${embed.image.height}
       />
+      <div class="hr" />
+      <span class="elide site_name" hidden=${!embed
+    .site_name}>${embed.site_name}</span>
+      <span class="elide title">${embed.title}</span>
+      <div class="text description">${embed.description}</div>
     </article>
   `;
 

@@ -28,7 +28,7 @@ body {
   border-radius: 10px;
   border: 3px solid rgba(50, 50, 50, 0.12);
 
-  font-family: "Helvetica Neue", "Roboto", sans-serif;
+  font-family: "Inter", "Helvetica Neue", "Roboto", sans-serif;
 }
 
 .elide {
@@ -44,9 +44,11 @@ body {
 
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  /* gap: 1rem; */
 
-  min-width: 55vmin;
+  /* min-width: 60vmin; */
+  /* width: 500vw; */
+  height: auto;
   max-width: min-content;
   max-height: min-content;
 
@@ -56,9 +58,9 @@ body {
 .embed .text {
   contain: content;
 
-  overflow: hidden;
+  /* overflow: hidden; */
   
-  max-height: 6rem;
+  /* max-height: 6rem; */
 
   white-space: pre-line;
 
@@ -78,7 +80,7 @@ body {
 }
 
 .embed .site_name {
-  padding-block-start: 15px;
+  /* padding-block-start: 15px; */
 
   color: #666;
   font-size: 12px;
@@ -87,17 +89,29 @@ body {
 }
 
 .embed .title {
+  padding-block: 20px;
 }
 
 .embed .description {
   color: #666;
   font-size: 16px;
   line-height: 1.4;
+  
+  padding-block-end: 20px;
 }
 
 .embed img {
-  border-block-start: 1.5mm solid var(--theme-color);
   object-fit: contain;
-  width: 100%;
+  width: 75vmin;
   height: auto;
+}
+
+.embed .hr {
+  height: 2px;
+  background-color: rgb(66 66 66 / 0.125);
+  width: calc(100% - 20px);
+
+  align-self: center;
+
+  margin-block-start: 20px
 }
