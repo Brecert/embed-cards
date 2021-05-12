@@ -25,18 +25,33 @@ const ImageEmbed = ({ embed }) =>
     </article>
   `;
 
+const Cond = (props, children) => {
+  const { cond = () => true } = props ?? {};
+  console.log(cond.toString(), cond());
+  if (cond()) {
+    return children();
+  } else {
+    return new DocumentFragment();
+  }
+};
+
 /** @param {{ embed: EnumSelect<Embed, "Website"> }} embed */
 const BasicEmbed = ({ embed }) =>
   html`
-    <article class="embed card">
-      <img
-        src=${embed.image.url}
-        width=${embed.image.width}
-        height=${embed.image.height}
-      />
+    <article class="embed card" style=${{ "--color": embed.color }}>
+      ${
+    embed.image
+      ? html` <img
+            src=${embed.image.url}
+            width=${embed.image.width}
+            height=${embed.image.height}
+          />`
+      : html``
+  }
       <div class="hr" />
-      <span class="elide site_name" hidden=${!embed
-    .site_name}>${embed.site_name}</span>
+      <span class="elide site_name" hidden=${!embed.site_name}
+        >${embed.site_name}</span
+      >
       <span class="elide title">${embed.title}</span>
       <div class="text description">${embed.description}</div>
     </article>
@@ -96,9 +111,11 @@ const empty = {
 };
 
 const embed = o(empty);
+const loading = o(true);
 
 /** @param {string} url The url to fetch */
 async function updateEmbed(url) {
+  loading(true);
   const res = await fetchEmbed(url);
 
   if (res.ok) {
@@ -106,6 +123,7 @@ async function updateEmbed(url) {
     const data = await res.json();
     console.log(data);
     embed(data);
+    loading(false);
   } else {
     console.error(await res.text());
   }
@@ -113,6 +131,7 @@ async function updateEmbed(url) {
 
 document.body.append(html`
   <form
+    class="form"
     onsubmit=${(e) => {
   e.preventDefault();
   updateEmbed(e.target.elements.url.value);
@@ -126,6 +145,11 @@ document.body.append(html`
       value="https://embeds.glitch.me/get/kagemori_michiru"
       required
     />
+    <div class="loading">
+      <div hidden=${() => !loading()}>loading...</div>
+    </div>
   </form>
   ${() => Embed({ embed: embed() })}
 `);
+
+window.onload = () => loading(false);
