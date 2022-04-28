@@ -1,11 +1,7 @@
 import { html, o } from "https://cdn.skypack.dev/sinuous?dts";
 
 const config = {
-  embedURI: `//access.bree.workers.dev/cdn/${
-    encodeURIComponent(
-      "https://jan.revolt.chat/embed?url=",
-    )
-  }`,
+  embedURI: `//access.bree.workers.dev/cdn/${encodeURIComponent("https://jan.revolt.chat/embed?url=")}`,
 };
 
 const cls = (obj) =>
@@ -21,7 +17,12 @@ const fetchEmbed = (url) =>
 const ImageEmbed = ({ embed }) =>
   html`
     <article class="embed card">
-      <img src=${embed.url} width=${embed.width} height=${embed.height} />
+      <img
+        src=${embed.url}
+        width=${embed.width}
+        height=${embed.height}
+        class=${[embed.height > embed.width && "tall"]}
+      />
     </article>
   `;
 
@@ -35,25 +36,19 @@ const Cond = (props, children) => {
   }
 };
 
-/** @param {{ embed: EnumSelect<Embed, "Website"> }} embed */
+/** @param {{ embed: EnumSelect<Embed, "Website"> }} params */
 const BasicEmbed = ({ embed }) =>
   html`
     <article class="embed card" style=${{ "--color": embed.color }}>
-      ${
-    embed.image
-      ? html` <img
-            src=${embed.image.url}
-            width=${embed.image.width}
-            height=${embed.image.height}
-          />`
-      : html``
-  }
-      <div class="hr" />
-      <span class="elide site_name" hidden=${!embed.site_name}
-        >${embed.site_name}</span
-      >
-      <span class="elide title">${embed.title}</span>
-      <div class="text description">${embed.description}</div>
+      ${embed.image && html`<img
+          src=${embed.image.url}
+          width=${embed.image.width}
+          height=${embed.image.height}
+          class=${[(embed.image != null && embed.image.height > embed.image.width) && "tall"]}
+      />`}
+      <div class="elide site_name" hidden=${!embed.site_name}>${embed.site_name}</div>
+      <div class="elide title" hidden=${!embed.title}>${embed.title}</div>
+      <p class="description">${embed.description}</p>
     </article>
   `;
 
@@ -69,26 +64,6 @@ const Embed = ({ embed }) => {
       return html`None`;
   }
 };
-
-// const empty = {
-//   type: "Website",
-//   url: "https://embeds.glitch.me/get/neko",
-//   special: {
-//     type: "None",
-//   },
-//   title: "1741474",
-//   description:
-//     "  \nanime, cat, czechonski, elf, girl, imaginatoria, manga, marcin, neko, table",
-//   image: {
-//     url:
-//       "https://safebooru.org/images/1662/5a51b5564fa913c2b502cb5a06c7c0b7.png",
-//     width: 645,
-//     height: 915,
-//     size: "Large",
-//   },
-//   opengraph_type: "website",
-//   color: "#975fd1",
-// };
 
 const empty = {
   type: "Website",
@@ -133,16 +108,16 @@ document.body.append(html`
   <form
     class="form"
     onsubmit=${(e) => {
-  e.preventDefault();
-  updateEmbed(e.target.elements.url.value);
-  return false;
-}}
+    e.preventDefault();
+    updateEmbed(e.target.elements.url.value);
+    return false;
+  }}
   >
     <input
       type="url"
       name="url"
       pattern="https://.*"
-      value="https://embeds.glitch.me/get/kagemori_michiru"
+      value="https://embeds.bree.dev/get/kagemori_michiru"
       required
     />
     <div class="loading">
