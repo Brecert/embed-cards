@@ -1,7 +1,7 @@
 import { html, o } from "https://cdn.skypack.dev/sinuous?dts";
 
 const config = {
-  embedURI: `//access.bree.workers.dev/cdn/${encodeURIComponent("https://jan.revolt.chat/embed?url=")}`,
+  embedURI: `//access.bree.workers.dev/access?url=${encodeURIComponent("https://jan.revolt.chat/embed?url=")}`,
 };
 
 const cls = (obj) =>
